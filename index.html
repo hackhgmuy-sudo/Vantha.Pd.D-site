@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dr. Vantha | Personal Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dr. Vantha Ph.D - Lecturer in English Literature at Western University of Cambodia. Explore skills, study tools, and AI research resources.">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0b1020;
+  color: #f1f5f9;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark and Light Theme */
+body.light {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+body.light nav {
+  background: #f1f5f9;
+}
+
+body.light nav a {
+  color: #475569;
+}
+
+body.light nav a:hover {
+  color: #7c3aed;
+}
+
+body.light header {
+  background: linear-gradient(135deg, #c084fc, #f472b6, #60a5fa);
+}
+
+body.light .about,
+body.light .skill,
+body.light .resource {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #1e293b;
+}
+
+body.light h2 {
+  color: #7c3aed;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  background: #020617;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .logo {
+  font-weight: bold;
+  font-size: 20px;
+  color: #93c5fd;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 25px;
+}
+
+nav a {
+  color: #93c5fd;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #a78bfa;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #93c5fd;
+  transition: 0.3s;
+}
+
+/* ===== HEADER ===== */
+header {
+  padding: 70px 20px 120px;
+  text-align: center;
+  background: linear-gradient(135deg, #7c3aed, #ec4899, #38bdf8);
+  position: relative;
+}
+
+.profile-pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  position: absolute;
+  left: 50%;
+  bottom: -80px;
+  transform: translateX(-50%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.profile-pic:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+header h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+header p {
+  font-size: 20px;
+  opacity: 0.95;
+  margin: 0;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s;
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* ===== SECTIONS ===== */
+section {
+  padding: 90px 20px 60px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h2 {
+  color: #a78bfa;
+  margin-bottom: 30px;
+  font-size: 32px;
+  text-align: center;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #a78bfa, #ec4899);
+  margin: 10px auto;
+}
+
+/* ===== ABOUT ===== */
+.about {
+  font-size: 18px;
+  line-height: 1.7;
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* ===== SKILLS ===== */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.skill {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.skill:hover::before {
+  left: 100%;
+}
+
+.skill:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(167, 139, 250, 0.3);
+}
+
+/* ===== TOOLS SECTIONS ===== */
+.resources, .ai-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.resource {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.resource:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.resource h3 {
+  margin: 0 0 15px;
+  color: #93c5fd;
+  font-size: 22px;
+}
+
+.resource p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 15px;
+}
+
+.resource a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #a78bfa;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: 2px solid #a78bfa;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
+.resource a:hover {
+  background: #a78bfa;
+  color: #fff;
+}
+
+/* ===== PROJECTS SECTION (NEW) ===== */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.project {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.project:hover {
+  transform: translateY(-10px);
+}
+
+.project img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-content {
+  padding: 20px;
+}
+
+.project h3 {
+  color: #93c5fd;
+  margin: 0 0 10px;
+}
+
+/* ===== CONTACT ===== */
+.contact {
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.contact a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #93c5fd;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 15px 25px;
+  border: 2px solid #93c5fd;
+  border-radius: 50px;
+  transition: all 0.3s;
+}
+
+.contact a:hover {
+  background: #93c5fd;
+  color: #0b1020;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #020617;
+  opacity: 0.9;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #020617;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  header h1 {
+    font-size: 36px;
+  }
+
+  .skills {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">.Vantha</div>
+  <button class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul id="navList">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#study-tools">Study Tools</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#ai-tools">AI Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+</nav>
+
+<header>
+  <h1>Dr. Vantha Ph.D</h1>
+  <p>Lecturer: English Literature | Western University of Cambodia</p>
+
+  <img 
+    src="https://scontent.fpnh5-2.fna.fbcdn.net/v/t39.30808-6/576838557_1177661894459811_2527090316990572006_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeHYRqTjxc6ujTYBDtZoyoJ8aBrkEk00RhloGuQSTTRGGSpA-xditfMIn0TTBl8aE5lnGGBZ5To3_llS6--QcArr&_nc_ohc=9lEukcK0cn8Q7kNvwEwXZBc&_nc_oc=Adm-zKI6c368LeTlkocIaW0rIaUo-3FtAwFcMMKZRhuwrVkpscvT2t6drkom6uJdr3M&_nc_zt=23&_nc_ht=scontent.fpnh5-2.fna&_nc_gid=05398X4mBnhTFYIWGNX4zQ&oh=00_Afq1IdYmaj-qoG4iYikamGkNkls_h4YPd8IQNiHv3GWaig&oe=6964D087" 
+    alt="Dr. Vantha Profile Picture"
+    class="profile-pic"
+  >
+</header>
+
+<section id="about" class="fade">
+  <h2>About Me</h2>
+  <div class="about">
+    Hello! I'm <b>Dr. Vantha</b> from Kampong Province. As a Ph.D. holder and lecturer in <b>English Literature</b> at <b>Western University of Cambodia</b>, I specialize in literature analysis, academic communication, and creative expression. Passionate about fostering critical thinking and academic excellence, I continuously develop innovative teaching methods and research tools.
+  </div>
+</section>
+
+<section id="skills" class="fade">
+  <h2>Core Skills</h2>
+  <div class="skills">
+    <div class="skill">English Communication</div>
+    <div class="skill">Critical Reading & Analysis</div>
+    <div class="skill">Academic Writing</div>
+    <div class="skill">Presentation Mastery</div>
+    <div class="skill">HTML/CSS/JavaScript</div>
+    <div class="skill">Research Methodology</div>
+    <div class="skill">Team Leadership</div>
+    <div class="skill">Digital Pedagogy</div>
+  </div>
+</section>
+
+<section id="study-tools" class="fade">
+  <h2>Essential Study Tools</h2>
+  <div class="resources">
+    <div class="resource">
+      <h3>Grammarly Premium</h3>
+      <p>Advanced proofreading, plagiarism detection, and style suggestions for academic papers and essays.</p>
+      <a href="https://www.grammarly.com" target="_blank">Explore Grammarly</a>
+    </div>
+    <div class="resource">
+      <h3>Evernote</h3>
+      <p>Organize lecture notes, research clippings, and study schedules with powerful search and tagging.</p>
+      <a href="https://evernote.com" target="_blank">Try Evernote</a>
+    </div>
+    <div class="resource">
+      <h3>Quizlet</h3>
+      <p>Interactive flashcards for literary theory, vocabulary, and exam preparation with spaced repetition.</p>
+      <a href="https://quizlet.com" target="_blank">Start Quizlet</a>
+    </div>
+    <div class="resource">
+      <h3>Project Gutenberg</h3>
+      <p>10,000+ free classic literature eBooks for deep reading and textual analysis projects.</p>
+      <a href="https://www.gutenberg.org" target="_blank">Browse Gutenberg</a>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="fade">
+  <h2>Featured Projects</h2>
+  <div class="projects">
+    <div class="project">
+      <img src="https://via.placeholder.com/400x200/1e293b/93c5fd?text=Literary+Analysis+Dashboard" alt="Project 1">
+      <div class="project-content">
+        <h3>Digital Literary Analysis Tool</h3>
+        <p>Interactive dashboard for analyzing classic literature themes and character development.</p>
+      </div>
+    </div>
+    <div class="project">
+      <img src="https://via.placeholder.com/400x200/1e293b/a78bfa?text=Academic+Writing+Guide" alt="Project 2">
+      <div class="project-content">
+        <h3>MLA/APA Citation Generator</h3>
+        <p>Automated tool for generating perfect citations and bibliographies for research papers.</p>
+      </div>
+    </div>
+    <div class="project">
+      <img src="https://via.placeholder.com/400x200/1e293b/38bdf8?text=Web+Portfolio+v2" alt="Project 3">
+      <div class="project-content">
+        <h3>Interactive Academic Portfolio</h3>
+        <p>This enhanced website featuring localStorage themes, animations, and responsive design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ai-tools" class="fade">
+  <h2>AI Tools for Research</h2>
+  <div class="ai-tools resources">
+    <div class="resource">
+      <h3>Perplexity AI</h3>
+      <p>AI-powered research engine with citations for literature reviews and scholarly queries.</p>
+      <a href="https://www.perplexity.ai" target="_blank">Launch Perplexity</a>
+    </div>
+    <div class="resource">
+      <h3>ChatGPT Advanced</h3>
+      <p>Brainstorming, outlining, and refining complex literary arguments and paper structures.</p>
+      <a href="https://chat.openai.com" target="_blank">Access ChatGPT</a>
+    </div>
+    <div class="resource">
+      <h3>Zotero + AI Plugins</h3>
+      <p>Automated reference management with AI-powered literature synthesis and gap analysis.</p>
+      <a href="https://www.zotero.org" target="_blank">Download Zotero</a>
+    </div>
+    <div class="resource">
+      <h3>Consensus AI</h3>
+      <p>Extract insights from 200M+ research papers with AI-summarized scholarly consensus.</p>
+      <a href="https://consensus.app" target="_blank">Try Consensus</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="fade contact">
+  <h2>Get In Touch</h2>
+  <p>Connect for academic collaboration, research opportunities, or literature discussions.</p>
+  <div class="contact-links">
+    <a href="mailto:stavanvantha@gmail.com">
+      📧 stavanvantha@gmail.com
+    </a>
+    <a href="https://web.facebook.com/Vanthaincambodia" target="_blank">
+      🔵 Facebook: Vanthaincambodia
+    </a>
+    <a href="https://www.linkedin.com/in/vantha" target="_blank">
+      💼 LinkedIn''
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Dr. Vantha. All rights reserved. | Built with HTML5, CSS3 & Vanilla JS [web:16][web:21][web:47]
+</footer>
+
+<script>
+/* Theme Toggle with localStorage */
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+  body.classList.add('light');
+  themeToggle.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('light');
+  const isLight = body.classList.contains('light');
+  themeToggle.textContent = isLight ? '☀️' : '🌙';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
+
+/* Mobile Menu */
+const menuToggle = document.getElementById('menuToggle');
+const navList = document.getElementById('navList');
+
+menuToggle.addEventListener('click', () => {
+  navList.classList.toggle('active');
+});
+
+/* Smooth Scrolling */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+    navList.classList.remove('active');
+  });
+});
+
+/* Scroll Animations */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }  
+  });
+}, observerOptions);
+
+document.querySelectorAll('.fade').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
