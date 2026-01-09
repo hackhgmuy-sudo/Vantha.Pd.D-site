@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dr. Vantha | Personal Website</title>
+<title>Dr. Vath Vantha | Personal Website</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dr. Vantha Ph.D - Lecturer in English Literature at Western University of Cambodia. Explore skills, study tools, and AI research resources.">
+<meta name="description" content="Dr. Vath Vantha Ph.D - Lecturer in English Literature at Western University of Cambodia. Explore skills, study tools, and AI research resources.">
 
 <style>
+/* Global Resets */
 * {
   box-sizing: border-box;
   font-family: "Segoe UI", Arial, sans-serif;
@@ -43,9 +44,12 @@ body.light header {
 
 body.light .about,
 body.light .skill,
-body.light .resource {
+body.light .resource,
+body.light .project,
+body.light .chat-window {
   background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
   color: #1e293b;
+  border: 1px solid #cbd5e1;
 }
 
 body.light h2 {
@@ -58,7 +62,7 @@ nav {
   padding: 15px 20px;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
   display: flex;
   justify-content: space-between;
@@ -285,7 +289,7 @@ h2::after {
   color: #fff;
 }
 
-/* ===== PROJECTS SECTION (NEW) ===== */
+/* ===== PROJECTS SECTION ===== */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -350,12 +354,138 @@ h2::after {
   color: #0b1020;
 }
 
+/* Telegram Specific Style */
+.contact a.telegram-link {
+  border-color: #24A1DE;
+  color: #24A1DE;
+}
+.contact a.telegram-link:hover {
+  background: #24A1DE;
+  color: #fff;
+}
+
 /* ===== FOOTER ===== */
 footer {
   text-align: center;
   padding: 30px;
   background: #020617;
   opacity: 0.9;
+}
+
+/* ===== AI CHAT WIDGET (NEW) ===== */
+.chat-widget-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #7c3aed;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  font-size: 30px;
+  z-index: 1000;
+  transition: transform 0.3s;
+}
+
+.chat-widget-btn:hover {
+  transform: scale(1.1);
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  height: 400px;
+  background: #1e293b;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.chat-window.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.chat-header {
+  background: #7c3aed;
+  padding: 15px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-close {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.bot-message {
+  background: #334155;
+  color: #e2e8f0;
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.user-message {
+  background: #7c3aed;
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-footer {
+  padding: 10px;
+  border-top: 1px solid #334155;
+  display: flex;
+  gap: 10px;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background: #0f172a;
+  color: white;
+}
+
+.chat-footer button {
+  background: #7c3aed;
+  border: none;
+  color: white;
+  padding: 0 15px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -372,10 +502,7 @@ footer {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-
+  .menu-toggle { display: flex; }
   nav ul {
     display: none;
     flex-direction: column;
@@ -387,18 +514,10 @@ footer {
     padding: 20px;
     gap: 15px;
   }
-
-  nav ul.active {
-    display: flex;
-  }
-
-  header h1 {
-    font-size: 36px;
-  }
-
-  .skills {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
+  nav ul.active { display: flex; }
+  header h1 { font-size: 36px; }
+  .skills { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .chat-window { width: 90%; right: 5%; }
 }
 </style>
 </head>
@@ -424,12 +543,12 @@ footer {
 </nav>
 
 <header>
-  <h1>Dr. Vantha Ph.D</h1>
+  <h1>Dr. Vath Vantha Ph.D</h1>
   <p>Lecturer: English Literature | Western University of Cambodia</p>
 
   <img 
     src="https://scontent.fpnh5-2.fna.fbcdn.net/v/t39.30808-6/576838557_1177661894459811_2527090316990572006_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeHYRqTjxc6ujTYBDtZoyoJ8aBrkEk00RhloGuQSTTRGGSpA-xditfMIn0TTBl8aE5lnGGBZ5To3_llS6--QcArr&_nc_ohc=9lEukcK0cn8Q7kNvwEwXZBc&_nc_oc=Adm-zKI6c368LeTlkocIaW0rIaUo-3FtAwFcMMKZRhuwrVkpscvT2t6drkom6uJdr3M&_nc_zt=23&_nc_ht=scontent.fpnh5-2.fna&_nc_gid=05398X4mBnhTFYIWGNX4zQ&oh=00_Afq1IdYmaj-qoG4iYikamGkNkls_h4YPd8IQNiHv3GWaig&oe=6964D087" 
-    alt="Dr. Vantha Profile Picture"
+    alt="Dr. Vath Vantha Profile Picture"
     class="profile-pic"
   >
 </header>
@@ -437,7 +556,7 @@ footer {
 <section id="about" class="fade">
   <h2>About Me</h2>
   <div class="about">
-    Hello! I'm <b>Dr. Vantha</b> from Kampong Province. As a Ph.D. holder and lecturer in <b>English Literature</b> at <b>Western University of Cambodia</b>, I specialize in literature analysis, academic communication, and creative expression. Passionate about fostering critical thinking and academic excellence, I continuously develop innovative teaching methods and research tools.
+    Hello! I'm <b>Dr. Vath Vantha</b> from Kampong Province. As a Ph.D. holder and lecturer in <b>English Literature</b> at <b>Western University of Cambodia</b>, I specialize in literature analysis, academic communication, and creative expression. Passionate about fostering critical thinking and academic excellence, I continuously develop innovative teaching methods and research tools.
   </div>
 </section>
 
@@ -539,20 +658,43 @@ footer {
   <p>Connect for academic collaboration, research opportunities, or literature discussions.</p>
   <div class="contact-links">
     <a href="mailto:stavanvantha@gmail.com">
-      📧 stavanvantha@gmail.com
+      📧 Email Me
+    </a>
+    <a href="https://t.me/Vathvantha" target="_blank" class="telegram-link">
+      ✈️ Telegram
     </a>
     <a href="https://web.facebook.com/Vanthaincambodia" target="_blank">
-      🔵 Facebook: Vanthaincambodia
+      🔵 Facebook
     </a>
     <a href="https://www.linkedin.com/in/vantha" target="_blank">
-      💼 LinkedIn''
+      💼 LinkedIn
     </a>
   </div>
 </section>
 
 <footer>
-  © 2026 Dr. Vantha. All rights reserved. | Built with HTML5, CSS3 & Vanilla JS [web:16][web:21][web:47]
+  © 2026 Dr. Vath Vantha. All rights reserved. | Built with HTML5, CSS3 & Vanilla JS
 </footer>
+
+<div class="chat-widget-btn" id="chatBtn">
+  💬
+</div>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <span>AI Assistant Support</span>
+    <span class="chat-close" id="chatClose">×</span>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="message bot-message">
+      Hello! I am Dr. Vath Vantha's AI Assistant. How can I help you today?
+    </div>
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="chatInput" placeholder="Type a message...">
+    <button id="chatSend">➤</button>
+  </div>
+</div>
 
 <script>
 /* Theme Toggle with localStorage */
@@ -609,6 +751,54 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade').forEach(el => {
   observer.observe(el);
 });
+
+/* AI CHAT WIDGET LOGIC */
+const chatBtn = document.getElementById('chatBtn');
+const chatWindow = document.getElementById('chatWindow');
+const chatClose = document.getElementById('chatClose');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+const chatBody = document.getElementById('chatBody');
+
+// Toggle Window
+chatBtn.addEventListener('click', () => {
+  chatWindow.classList.toggle('active');
+});
+
+chatClose.addEventListener('click', () => {
+  chatWindow.classList.remove('active');
+});
+
+// Send Message Logic
+function sendMessage() {
+  const text = chatInput.value.trim();
+  if (text === '') return;
+
+  // 1. Add User Message
+  addMessage(text, 'user-message');
+  chatInput.value = '';
+
+  // 2. Simulate AI Response (Auto-reply)
+  setTimeout(() => {
+    const reply = "Thank you for your message. Dr. Vath Vantha is currently offline. For the fastest response, please contact him directly on Telegram: <a href='https://t.me/Vathvantha' style='color:#a78bfa'>Click Here</a>";
+    addMessage(reply, 'bot-message');
+  }, 1000); // 1 second delay
+}
+
+function addMessage(text, className) {
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `message ${className}`;
+  msgDiv.innerHTML = text; // innerHTML to allow links
+  chatBody.appendChild(msgDiv);
+  chatBody.scrollTop = chatBody.scrollHeight; // Auto scroll to bottom
+}
+
+// Event Listeners for sending
+chatSend.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+
 </script>
 
 </body>
