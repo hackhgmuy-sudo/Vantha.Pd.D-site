@@ -3,295 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Vath Vantha | AI-Integrated Portfolio</title>
-    <meta name="description" content="Interactive Portfolio of Dr. Vath Vantha - English Literature PhD & Tech Specialist.">
+    <title>Dr. Vath Vantha | Library & Projects Portfolio</title>
+    <meta name="description" content="Portfolio of Dr. Vath Vantha - Literature & Tech.">
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* =========================================
-           1. THEME VARIABLES (Reactive CSS)
+           1. THEME VARIABLES
            ========================================= */
         :root {
-            /* "Afternoon" (Light Mode) */
+            /* Light Mode */
             --bg-base: #f8fafc;
             --bg-surface: #ffffff;
-            --bg-glass: rgba(255, 255, 255, 0.7);
+            --bg-glass: rgba(255, 255, 255, 0.90); /* High opacity for readability */
             --text-primary: #0f172a;
             --text-secondary: #475569;
-            --accent: #2563eb; /* Royal Blue */
+            --accent: #2563eb;
             --accent-glow: rgba(37, 99, 235, 0.2);
             --border: #e2e8f0;
             --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
         }
 
-        /* "Night" (Dark Mode) */
-        [data-theme="night"] {
+        [data-theme="dark"] {
+            /* Dark Mode */
             --bg-base: #020617;
             --bg-surface: #0f172a;
-            --bg-glass: rgba(15, 23, 42, 0.7);
+            --bg-glass: rgba(15, 23, 42, 0.90); /* High opacity for readability */
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
-            --accent: #8b5cf6; /* Cyber Purple */
+            --accent: #8b5cf6;
             --accent-glow: rgba(139, 92, 246, 0.3);
             --border: rgba(255,255,255,0.1);
             --shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
         }
 
-        /* Reset & Base */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: var(--transition); }
         
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+        body { background-color: var(--bg-base); color: var(--text-primary); overflow-x: hidden; line-height: 1.6; }
 
-        /* Dynamic Background Pattern */
+        /* BACKGROUND IMAGE WITH OVERLAY */
         body::before {
-            content: ''; position: fixed; inset: 0; z-index: -1;
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
             background: 
-                radial-gradient(circle at 15% 50%, var(--accent-glow), transparent 25%),
-                radial-gradient(circle at 85% 30%, var(--accent-glow), transparent 25%);
-            animation: pulse 10s ease-in-out infinite alternate;
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+                url("https://tse1.mm.bing.net/th/id/OIP.poMdw9w43hIu8NcKwIs0ZQAAAA?w=408&h=290&rs=1&pid=ImgDetMain&o=7&rm=3");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        @keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
         /* =========================================
-           2. COMPONENT: NAVIGATION (Glass)
+           2. NAVIGATION
            ========================================= */
         nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 1rem 5%;
+            position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 5%;
             display: flex; justify-content: space-between; align-items: center;
-            background: var(--bg-glass);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
+            background: var(--bg-glass); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
         }
-
-        .brand {
-            font-size: 1.5rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-
-        .nav-items { display: flex; gap: 2rem; list-style: none; align-items: center; }
-        
-        .nav-link {
-            text-decoration: none; color: var(--text-secondary); font-weight: 500;
-            font-size: 0.95rem; position: relative;
-        }
+        .brand { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, var(--text-primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-items { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-link { text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; }
         .nav-link:hover, .nav-link.active { color: var(--accent); }
-
-        /* Theme Toggle Button */
-        .theme-btn {
-            background: var(--bg-surface); border: 1px solid var(--border);
-            color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            font-size: 1.2rem; transition: transform 0.2s;
-        }
-        .theme-btn:hover { transform: rotate(15deg) scale(1.1); box-shadow: var(--shadow); }
-
-        /* Mobile Menu */
-        .menu-toggle { display: none; font-size: 1.5rem; background: none; border: none; color: var(--text-primary); cursor: pointer; }
+        .theme-btn, .menu-toggle { background: var(--bg-surface); border: 1px solid var(--border); color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; }
+        .menu-toggle { display: none; }
 
         /* =========================================
-           3. COMPONENT: HERO SECTION
+           3. HERO
            ========================================= */
-        header {
-            min-height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
-            padding: 80px 1rem 40px;
-        }
-
-        .avatar-wrapper {
-            position: relative; margin-bottom: 2rem;
-            width: 180px; height: 180px;
-        }
-        
-        .avatar {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--bg-surface);
-            box-shadow: var(--shadow), 0 0 0 4px var(--accent-glow);
-        }
-        
-        .status-badge {
-            position: absolute; bottom: 10px; right: 10px;
-            background: #10b981; color: white; padding: 4px 12px;
-            border-radius: 20px; font-size: 0.8rem; font-weight: 700;
-            border: 2px solid var(--bg-surface);
-            animation: bounce 2s infinite;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-        
-        .typing-text {
-            font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--accent);
-            font-weight: 600; margin-bottom: 2rem; min-height: 1.5em;
-        }
-
-        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-        
-        .btn {
-            padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; text-decoration: none;
-            display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s;
-        }
-        
-        .btn-primary { background: var(--accent); color: white; border: none; box-shadow: 0 4px 15px var(--accent-glow); }
+        header { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 1rem 40px; }
+        .avatar-wrapper { position: relative; margin-bottom: 2rem; width: 180px; height: 180px; }
+        .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-surface); box-shadow: var(--shadow); }
+        .status-badge { position: absolute; bottom: 10px; right: 10px; background: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; border: 2px solid var(--bg-surface); animation: bounce 2s infinite; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .typing-text { font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--accent); font-weight: 600; margin-bottom: 2rem; min-height: 1.5em; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .btn { padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin: 0 0.5rem; }
+        .btn-primary { background: var(--accent); color: white; }
         .btn-secondary { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border); }
-        
-        .btn:hover { transform: translateY(-3px); }
 
         /* =========================================
-           4. COMPONENT: CARDS (Glassmorphism)
+           4. GENERAL SECTIONS & CARDS
            ========================================= */
         section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
-        
         .section-header { margin-bottom: 3rem; text-align: center; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .section-header p { color: var(--text-secondary); }
-
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--bg-surface); border: 1px solid var(--border);
-            padding: 2rem; border-radius: 24px; position: relative; overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card { background: var(--bg-glass); border: 1px solid var(--border); padding: 2rem; border-radius: 24px; transition: transform 0.3s, border-color 0.3s; backdrop-filter: blur(12px); display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card-icon { font-size: 2rem; color: var(--accent); margin-bottom: 1rem; background: var(--accent-glow); width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 16px; }
         
-        .card:hover { transform: translateY(-10px); box-shadow: var(--shadow); border-color: var(--accent); }
-        
-        .card-icon {
-            font-size: 2rem; color: var(--accent); margin-bottom: 1rem;
-            background: var(--accent-glow); width: 60px; height: 60px;
-            display: flex; align-items: center; justify-content: center; border-radius: 16px;
-        }
+        /* New Styles for Library/Project Actions */
+        .card-actions { margin-top: auto; padding-top: 1.5rem; display: flex; gap: 10px; }
+        .action-link { font-size: 0.9rem; font-weight: 600; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        .action-link:hover { text-decoration: underline; }
+        .tag { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; background: var(--border); color: var(--text-secondary); margin-bottom: 1rem; width: fit-content;}
+
+        /* Skill Bars */
+        .skill-bar-container { width: 100%; background: rgba(0,0,0,0.1); height: 8px; border-radius: 4px; overflow: hidden; }
+        .skill-bar { height: 100%; background: var(--accent); width: 0; transition: width 1.5s ease-in-out; }
 
         /* =========================================
-           5. COMPONENT: AI CHATBOT (ChatGPT Style)
+           5. AI CHATBOT
            ========================================= */
-        .ai-fab {
-            position: fixed; bottom: 30px; right: 30px;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: var(--accent); color: white;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; cursor: pointer;
-            box-shadow: 0 10px 30px var(--accent-glow);
-            z-index: 1000; transition: transform 0.3s;
-        }
-        .ai-fab:hover { transform: scale(1.1) rotate(90deg); }
-
-        .ai-window {
-            position: fixed; bottom: 100px; right: 30px;
-            width: 380px; height: 550px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            display: flex; flex-direction: column;
-            transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 1000; overflow: hidden;
-        }
-        
-        .ai-window.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
-
-        .ai-header {
-            padding: 1.5rem; background: var(--bg-surface);
-            border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .ai-title h3 { font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-        .ai-status { font-size: 0.8rem; color: #10b981; }
-
-        .chat-area {
-            flex: 1; padding: 1.5rem; overflow-y: auto;
-            background: var(--bg-base);
-            display: flex; flex-direction: column; gap: 1rem;
-        }
-
-        .msg {
-            max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.95rem;
-            line-height: 1.5; animation: popUp 0.3s ease;
-        }
-        
-        .msg.bot {
-            background: var(--bg-surface); border: 1px solid var(--border);
-            color: var(--text-primary); align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-        
-        .msg.user {
-            background: var(--accent); color: white;
-            align-self: flex-end; border-bottom-right-radius: 4px;
-        }
-
-        .typing-dots {
-            display: none; gap: 4px; padding: 12px; background: var(--bg-surface);
-            border-radius: 12px; align-self: flex-start; width: fit-content;
-        }
-        .dot { width: 6px; height: 6px; background: var(--text-secondary); border-radius: 50%; animation: bounce 1.4s infinite; }
-        .dot:nth-child(2) { animation-delay: 0.2s; } .dot:nth-child(3) { animation-delay: 0.4s; }
-
-        .input-zone {
-            padding: 1rem; background: var(--bg-surface); border-top: 1px solid var(--border);
-            display: flex; gap: 10px;
-        }
-        .input-zone input {
-            flex: 1; padding: 12px 16px; border-radius: 50px;
-            border: 1px solid var(--border); background: var(--bg-base);
-            color: var(--text-primary); outline: none;
-        }
-        .input-zone button {
-            width: 45px; height: 45px; border-radius: 50%; background: var(--accent);
-            color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        }
-
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        @keyframes popUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .ai-fab { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; box-shadow: 0 10px 30px var(--accent-glow); z-index: 1000; }
+        .ai-window { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px; background: var(--bg-surface); border-radius: 24px; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transform: translateY(20px); z-index: 1000; overflow: hidden; }
+        .ai-window.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+        .chat-area { flex: 1; padding: 1.5rem; overflow-y: auto; background: var(--bg-base); display: flex; flex-direction: column; gap: 1rem; }
+        .msg { padding: 10px 14px; border-radius: 14px; max-width: 85%; font-size: 0.9rem; }
+        .msg.bot { background: var(--bg-surface); border: 1px solid var(--border); align-self: flex-start; }
+        .msg.user { background: var(--accent); color: white; align-self: flex-end; }
+        .input-zone { padding: 10px; background: var(--bg-surface); display: flex; gap: 10px; border-top: 1px solid var(--border); }
+        .input-zone input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-base); color: var(--text-primary); }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-items { 
-                position: fixed; top: 70px; left: 0; width: 100%; 
-                background: var(--bg-surface); flex-direction: column; padding: 2rem;
-                border-bottom: 1px solid var(--border); display: none;
-            }
+            .nav-items { position: fixed; top: 70px; left: 0; width: 100%; background: var(--bg-surface); flex-direction: column; padding: 2rem; display: none; border-bottom: 1px solid var(--border); }
             .nav-items.active { display: flex; }
             .menu-toggle { display: block; }
-            .ai-window { width: 90%; right: 5%; bottom: 100px; height: 500px; }
-            section { padding: 60px 1.5rem; }
+            .ai-window { width: 90%; right: 5%; bottom: 100px; }
         }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
     </style>
 </head>
-<body data-theme="night">
+<body data-theme="dark">
 
     <nav>
-        <div class="brand">
-            <i class="ph ph-graduation-cap"></i> Vantha.PhD
-        </div>
+        <div class="brand"><i class="ph ph-graduation-cap"></i> Vantha.PhD</div>
         <ul class="nav-items" id="navMenu">
             <li><a href="#home" class="nav-link active">Home</a></li>
             <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#library" class="nav-link">Library</a></li> <li><a href="#projects" class="nav-link">Projects</a></li> <li><a href="#skills" class="nav-link">Skills</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
-        <div style="display:flex; gap:15px; align-items:center;">
-            <button class="theme-btn" id="themeToggle" title="Switch Theme">
-                <i class="ph ph-moon-stars"></i>
-            </button>
-            <button class="menu-toggle" id="menuBtn">
-                <i class="ph ph-list"></i>
-            </button>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <button class="theme-btn" id="themeToggle"><i class="ph ph-moon-stars"></i></button>
+            <button class="menu-toggle" id="menuBtn"><i class="ph ph-list"></i></button>
         </div>
     </nav>
 
@@ -302,13 +153,9 @@
         </div>
         <h1>Dr. Vath Vantha</h1>
         <div class="typing-text" id="typer"></div>
-        <div class="btn-group">
-            <a href="#contact" class="btn btn-primary">
-                <i class="ph ph-paper-plane-tilt"></i> Collaborate
-            </a>
-            <a href="#about" class="btn btn-secondary">
-                <i class="ph ph-read-cv-logo"></i> View Portfolio
-            </a>
+        <div style="display:flex; justify-content:center;">
+            <a href="#projects" class="btn btn-primary"><i class="ph ph-code"></i> See Work</a>
+            <a href="#library" class="btn btn-secondary"><i class="ph ph-books"></i> Library</a>
         </div>
     </header>
 
@@ -321,17 +168,83 @@
             <div class="card">
                 <div class="card-icon"><i class="ph ph-book-open"></i></div>
                 <h3>English Literature</h3>
-                <p>PhD holder from <strong>Western University of Cambodia</strong>. Specializing in advanced literary analysis and academic curriculum development.</p>
+                <p>PhD holder from <strong>Western University</strong>. Expert in literary analysis, conflict types, and poetry.</p>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="ph ph-certificate"></i></div>
                 <h3>Tech Certified</h3>
-                <p>Trained at <strong>NTTI</strong> in Business ICT, Graphic Design, and Web Development. Bringing technical precision to education.</p>
+                <p>Trained at <strong>NTTI</strong> in Business ICT, Graphic Design, and Web Development.</p>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="ph ph-lightbulb"></i></div>
-                <h3>Innovation</h3>
-                <p>From Kampong Cham to the digital frontier. Passionate about integrating AI and digital tools into modern research.</p>
+                <h3>Research</h3>
+                <p>Focused on leadership traits, ethics, and integrating AI into academic research writing.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="library">
+        <div class="section-header">
+            <h2>Digital Library</h2>
+            <p>Lecture Notes, Research Papers & Academic Resources</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <span class="tag">Literature Analysis</span>
+                <h3>The Gift of The Magi</h3>
+                <p>An in-depth analysis of themes: Sacrifice and Selfless Love. Group presentation notes and conflict breakdown.</p>
+                <div class="card-actions">
+                    <a href="#" class="action-link"><i class="ph ph-file-pdf"></i> Read Notes</a>
+                </div>
+            </div>
+            <div class="card">
+                <span class="tag">Leadership</span>
+                <h3>Organizational Ethics</h3>
+                <p>Exam preparation materials covering Leadership Traits, Attitudes, and Political Behavior in organizations.</p>
+                <div class="card-actions">
+                    <a href="#" class="action-link"><i class="ph ph-file-pdf"></i> View Summary</a>
+                </div>
+            </div>
+            <div class="card">
+                <span class="tag">Grammar</span>
+                <h3>Advanced Grammar</h3>
+                <p>Resources on Adjective Order, Verb Tenses, and Paraphrasing techniques for research papers.</p>
+                <div class="card-actions">
+                    <a href="#" class="action-link"><i class="ph ph-download-simple"></i> Download</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2>Featured Projects</h2>
+            <p>Technological Innovations & Development</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon"><i class="ph ph-robot"></i></div>
+                <h3>AI Telegram Bot</h3>
+                <p>A Python-based bot integrated with AI APIs to assist students with English Literature queries automatically.</p>
+                <div class="card-actions">
+                    <a href="#" class="action-link">View Code <i class="ph ph-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="ph ph-desktop"></i></div>
+                <h3>School Mgmt System</h3>
+                <p>A web-based platform for managing classroom data, student records, and grading systems using HTML/JS.</p>
+                <div class="card-actions">
+                    <a href="#" class="action-link">Launch Demo <i class="ph ph-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="ph ph-globe"></i></div>
+                <h3>Personal Portfolio</h3>
+                <p>This interactive website built with modern CSS Glassmorphism and integrated AI chat features.</p>
+                <div class="card-actions">
+                    <a href="#" class="action-link">Live Preview <i class="ph ph-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </section>
@@ -343,31 +256,22 @@
         </div>
         <div class="grid">
             <div class="card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <strong>Academic Writing</strong>
-                    <span style="color:var(--accent)">98%</span>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>Academic Writing</strong><span style="color: var(--accent)">98%</span>
                 </div>
-                <div style="width:100%; background:var(--bg-base); height:8px; border-radius:4px;">
-                    <div style="width:98%; background:var(--accent); height:100%; border-radius:4px;"></div>
-                </div>
+                <div class="skill-bar-container"><div class="skill-bar" style="width: 98%;"></div></div>
             </div>
             <div class="card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <strong>HTML / CSS / JS</strong>
-                    <span style="color:var(--accent)">90%</span>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>HTML / CSS / JS</strong><span style="color: var(--accent)">90%</span>
                 </div>
-                <div style="width:100%; background:var(--bg-base); height:8px; border-radius:4px;">
-                    <div style="width:90%; background:var(--accent); height:100%; border-radius:4px;"></div>
-                </div>
+                <div class="skill-bar-container"><div class="skill-bar" style="width: 90%;"></div></div>
             </div>
             <div class="card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <strong>Graphic Design</strong>
-                    <span style="color:var(--accent)">85%</span>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <strong>Graphic Design</strong><span style="color: var(--accent)">85%</span>
                 </div>
-                <div style="width:100%; background:var(--bg-base); height:8px; border-radius:4px;">
-                    <div style="width:85%; background:var(--accent); height:100%; border-radius:4px;"></div>
-                </div>
+                <div class="skill-bar-container"><div class="skill-bar" style="width: 85%;"></div></div>
             </div>
         </div>
     </section>
@@ -377,196 +281,114 @@
             <h2>Get In Touch</h2>
             <p>Available for lectures, research, and development</p>
         </div>
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align:center;">
-            <a href="https://t.me/Vathvantha" class="card" style="text-decoration:none; color:inherit;">
-                <div class="card-icon" style="margin:0 auto 1rem;"><i class="ph ph-telegram-logo"></i></div>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align: center;">
+            <a href="https://t.me/Vathvantha" class="card" style="text-decoration: none; color: inherit;">
+                <div class="card-icon" style="margin: 0 auto 1rem;"><i class="ph ph-telegram-logo"></i></div>
                 <h3>Telegram</h3>
             </a>
-            <a href="mailto:stavanvantha@gmail.com" class="card" style="text-decoration:none; color:inherit;">
-                <div class="card-icon" style="margin:0 auto 1rem;"><i class="ph ph-envelope-simple"></i></div>
+            <a href="mailto:stavanvantha@gmail.com" class="card" style="text-decoration: none; color: inherit;">
+                <div class="card-icon" style="margin: 0 auto 1rem;"><i class="ph ph-envelope-simple"></i></div>
                 <h3>Email</h3>
             </a>
-            <a href="https://web.facebook.com/Vanthaincambodia" class="card" style="text-decoration:none; color:inherit;">
-                <div class="card-icon" style="margin:0 auto 1rem;"><i class="ph ph-facebook-logo"></i></div>
+            <a href="https://web.facebook.com/Vanthaincambodia" class="card" style="text-decoration: none; color: inherit;">
+                <div class="card-icon" style="margin: 0 auto 1rem;"><i class="ph ph-facebook-logo"></i></div>
                 <h3>Facebook</h3>
             </a>
         </div>
     </section>
 
-    <div class="ai-fab" onclick="toggleChat()">
-        <i class="ph ph-chat-teardrop-dots"></i>
-    </div>
-
+    <div class="ai-fab" id="aiFab"><i class="ph ph-chat-teardrop-dots"></i></div>
     <div class="ai-window" id="aiWindow">
-        <div class="ai-header">
-            <div class="ai-title">
-                <h3><i class="ph ph-robot"></i> Dr. Vantha AI</h3>
-                <span class="ai-status">● Online</span>
-            </div>
-            <button onclick="toggleChat()" style="background:none; border:none; cursor:pointer; color:var(--text-secondary);"><i class="ph ph-x" style="font-size:1.2rem;"></i></button>
+        <div style="padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;">
+            <strong>Dr. Vantha AI</strong>
+            <button id="closeChat" style="background:none; border:none; color: var(--text-secondary); cursor: pointer;"><i class="ph ph-x"></i></button>
         </div>
         <div class="chat-area" id="chatFeed">
-            <div class="msg bot">
-                Hello! I am the AI Assistant for Dr. Vantha. I can answer questions about his <strong>Western University degree</strong>, his <strong>NTTI training</strong>, or his <strong>skills</strong>. What would you like to know?
-            </div>
-            <div class="typing-dots" id="typingIndicator">
-                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-            </div>
+            <div class="msg bot">Hello! I am Dr. Vantha's AI assistant. Ask me about his Literature research or Coding projects!</div>
         </div>
         <div class="input-zone">
-            <input type="text" id="userMsg" placeholder="Ask something..." onkeypress="handleKey(event)">
-            <button onclick="sendMsg()"><i class="ph ph-paper-plane-right"></i></button>
+            <input type="text" id="userMsg" placeholder="Ask something...">
+            <button id="sendBtn" style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: white; border: none; cursor: pointer;"><i class="ph ph-paper-plane-right"></i></button>
         </div>
     </div>
 
     <script>
-        // --- 1. REACTIVE THEME ENGINE ---
-        const body = document.body;
+        // --- JAVASCRIPT LOGIC ---
+        const XAI_API_KEY = 'your_xai_api_key_here'; // TODO: ADD KEY HERE
+
+        // 1. Theme
         const themeBtn = document.getElementById('themeToggle');
-        const icon = themeBtn.querySelector('i');
-
-        // Check Local Storage on Load
-        const savedTheme = localStorage.getItem('vantha_theme') || 'night';
-        setTheme(savedTheme);
-
         themeBtn.addEventListener('click', () => {
+            const body = document.body;
             const current = body.getAttribute('data-theme');
-            const newTheme = current === 'night' ? 'afternoon' : 'night';
-            setTheme(newTheme);
+            const next = current === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', next);
+            localStorage.setItem('vantha_theme', next);
+            themeBtn.innerHTML = next === 'dark' ? '<i class="ph ph-moon-stars"></i>' : '<i class="ph ph-sun"></i>';
         });
 
-        function setTheme(theme) {
-            body.setAttribute('data-theme', theme);
-            localStorage.setItem('vantha_theme', theme);
-            // Switch Icon
-            if(theme === 'night') {
-                icon.className = 'ph ph-moon-stars';
-            } else {
-                icon.className = 'ph ph-sun';
-            }
-        }
-
-        // --- 2. ADVANCED AI LOGIC (Simulates ChatGPT) ---
-        const chatWindow = document.getElementById('aiWindow');
-        const feed = document.getElementById('chatFeed');
-        const input = document.getElementById('userMsg');
-        const typer = document.getElementById('typingIndicator');
-
-        function toggleChat() {
-            chatWindow.classList.toggle('open');
-            if(chatWindow.classList.contains('open')) input.focus();
-        }
-
-        function handleKey(e) { if(e.key === 'Enter') sendMsg(); }
-
-        function sendMsg() {
-            const txt = input.value.trim();
-            if(!txt) return;
-
-            // 1. Render User Message
-            addBubble(txt, 'user');
-            input.value = '';
-
-            // 2. Show Typing Indicator
-            showTyping(true);
-
-            // 3. Process AI Response (Simulated Delay)
-            setTimeout(() => {
-                const response = processAI(txt.toLowerCase());
-                showTyping(false);
-                typeWriterEffect(response); // Type out the answer like GPT
-            }, 1200);
-        }
-
-        function addBubble(txt, type) {
-            const div = document.createElement('div');
-            div.className = `msg ${type}`;
-            div.innerHTML = txt;
-            feed.insertBefore(div, typer);
-            feed.scrollTop = feed.scrollHeight;
-        }
-
-        function showTyping(show) {
-            typer.style.display = show ? 'flex' : 'none';
-            feed.scrollTop = feed.scrollHeight;
-        }
-
-        // The "Brain" of the Bot
-        function processAI(query) {
-            if(query.includes('study') || query.includes('university') || query.includes('education') || query.includes('degree')) {
-                return "Dr. Vantha holds a PhD in English Literature from <b>Western University of Cambodia</b>. He specialized in literary analysis and academic communication.";
-            }
-            if(query.includes('tech') || query.includes('ntti') || query.includes('skill') || query.includes('code')) {
-                return "He is also a tech expert! He received training at <b>NTTI</b> (National Technical Training Institute) in Business ICT, Graphic Design, and Web Development.";
-            }
-            if(query.includes('from') || query.includes('live') || query.includes('born')) {
-                return "Dr. Vantha is proudly from <b>Kampong Cham Province</b>, Cambodia.";
-            }
-            if(query.includes('contact') || query.includes('email') || query.includes('reach')) {
-                return "You can reach him via Telegram: <a href='https://t.me/Vathvantha' style='color:var(--accent)'>@Vathvantha</a> or Email: stavanvantha@gmail.com.";
-            }
-            if(query.includes('hello') || query.includes('hi')) {
-                return "Hello there! I am ready to answer your questions about Dr. Vantha's portfolio.";
-            }
-            return "That's an interesting question. While I focus on Dr. Vantha's professional background, I'd suggest contacting him directly for more details!";
-        }
-
-        // Typing Effect for AI Response
-        function typeWriterEffect(txt) {
-            const div = document.createElement('div');
-            div.className = 'msg bot';
-            feed.insertBefore(div, typer);
-            
-            let i = 0;
-            // Strip HTML tags for typing, then inject full HTML at end (simple version)
-            // For complex HTML, we just inject immediately to avoid breaking tags
-            if(txt.includes('<')) {
-                div.innerHTML = txt;
-                feed.scrollTop = feed.scrollHeight;
-            } else {
-                const interval = setInterval(() => {
-                    div.textContent += txt.charAt(i);
-                    feed.scrollTop = feed.scrollHeight;
-                    i++;
-                    if(i > txt.length - 1) clearInterval(interval);
-                }, 30);
-            }
-        }
-
-        // --- 3. HEADER TYPING ANIMATION ---
+        // 2. Typing Effect
+        const typer = document.getElementById('typer');
         const roles = ["English Literature PhD", "Technology Specialist", "Academic Researcher", "Web Developer"];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeTarget = document.getElementById('typer');
-
-        function typeHeader() {
-            const currentRole = roles[roleIndex];
-            
-            if (isDeleting) {
-                typeTarget.textContent = currentRole.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typeTarget.textContent = currentRole.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            if (!isDeleting && charIndex === currentRole.length) {
-                setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-            }
-
-            const speed = isDeleting ? 50 : 100;
-            setTimeout(typeHeader, speed);
+        let roleIdx = 0, charIdx = 0, isDeleting = false;
+        function type() {
+            const current = roles[roleIdx];
+            typer.textContent = current.substring(0, isDeleting ? charIdx-- : charIdx++);
+            if (!isDeleting && charIdx === current.length + 1) { isDeleting = true; setTimeout(type, 2000); }
+            else if (isDeleting && charIdx === 0) { isDeleting = false; roleIdx = (roleIdx + 1) % roles.length; setTimeout(type, 500); }
+            else setTimeout(type, isDeleting ? 50 : 100);
         }
-        typeHeader();
+        type();
 
-        // Mobile Menu
+        // 3. Mobile Menu
         document.getElementById('menuBtn').addEventListener('click', () => {
             document.getElementById('navMenu').classList.toggle('active');
         });
+
+        // 4. Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        // 5. Skills Animation
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.querySelectorAll('.skill-bar').forEach(bar => {
+                        bar.style.width = bar.parentElement.previousElementSibling.querySelector('span').textContent;
+                    });
+                }
+            });
+        });
+        observer.observe(document.getElementById('skills'));
+
+        // 6. Chatbot Logic (Simplified)
+        const chatWindow = document.getElementById('aiWindow');
+        const feed = document.getElementById('chatFeed');
+        document.getElementById('aiFab').onclick = () => chatWindow.classList.toggle('open');
+        document.getElementById('closeChat').onclick = () => chatWindow.classList.remove('open');
+        
+        async function sendMsg() {
+            const input = document.getElementById('userMsg');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            feed.innerHTML += `<div class="msg user" style="margin-left:auto;">${text}</div>`;
+            input.value = '';
+            feed.scrollTop = feed.scrollHeight;
+            
+            // Simulation of AI response (Replace with real API call if needed)
+            setTimeout(() => {
+                feed.innerHTML += `<div class="msg bot">That is a great question about "${text}". As an AI, I suggest contacting Dr. Vantha directly on Telegram for a detailed answer!</div>`;
+                feed.scrollTop = feed.scrollHeight;
+            }, 1000);
+        }
+        document.getElementById('sendBtn').onclick = sendMsg;
+        document.getElementById('userMsg').onkeypress = (e) => { if(e.key === 'Enter') sendMsg(); };
     </script>
 </body>
 </html>
